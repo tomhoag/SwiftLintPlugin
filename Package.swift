@@ -14,7 +14,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SwiftLintPlugin",
+            name: "SwiftLintPlugin"
         )
     ]
 )
