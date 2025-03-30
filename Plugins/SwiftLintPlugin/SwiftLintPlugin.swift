@@ -14,21 +14,17 @@ struct SwiftLintPlugin: BuildToolPlugin {
     /// This entry point is called when operating on a Swift package.
     func createBuildCommands(context: PluginContext, target: Target) throws -> [Command] {
 
-        let scriptPath = URL(fileURLWithPath: #filePath)
-            .deletingLastPathComponent()
-            .appending(component: "Resources")
-            .appending(component: "swift-format-lint-script.sh")
-            .path
+        let scriptPath = context.package.directoryURL
+            .appending(components: "Resources")
+            .appending(components: "swift-format-lint-script.sh")
+            .path()
 
-        let configurationPath = URL(fileURLWithPath: #filePath)
-            .deletingLastPathComponent()
-            .appending(component: "Resources")
-            .appending(component: "swift-format-default-config.json")
-            .path
+        let configurationPath = context.package.directoryURL
+            .appending(components: "Resources")
+            .appending(components: "swift-format-default-config.json")
+            .path()
 
-        let packagePath = context.package
-            .directoryURL
-            .path
+        let packagePath = context.package.directoryURL.path()
 
         return [
             .buildCommand(

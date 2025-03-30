@@ -3,14 +3,14 @@ import PackageDescription
 
 let package = Package(
     name: "SwiftLintPlugin",
-    platforms: [
-        .iOS(.v17),
-        .macOS(.v14),
-    ],
+    platforms: [.macOS(.v13)],
     products: [
         .plugin(
             name: "SwiftLintPlugin",
-            targets: ["SwiftLintPlugin"])
+            targets: ["SwiftLintPlugin"]
+        )
+    ],
+    dependencies: [
     ],
     targets: [
         .plugin(
@@ -20,4 +20,3 @@ let package = Package(
         ),
     ]
 )
-
