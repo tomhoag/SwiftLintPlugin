@@ -19,11 +19,7 @@ struct SwiftLintPlugin: BuildToolPlugin {
             .deletingLastPathComponent() // remove 'derived'
             .deletingLastPathComponent() // remove target name
             .deletingLastPathComponent() // remove plugins
-            .appending(component: "checkouts")
-            .appending(component: "SwiftLintPlugin")
-
-        // have: /Users/tomhoag/Library/Developer/Xcode/DerivedData/Clusterables-atryuailfpggwaaaeoxlmadaqyme/SourcePackages/plugins/checkouts/SwiftLintPlugin/Resources/
-        // want: /Users/tomhoag/Library/Developer/Xcode/DerivedData/Clusterables-atryuailfpggwaaaeoxlmadaqyme/SourcePackages/checkouts/SwiftLintPlugin/Resources
+            .appending(components: "checkouts", "SwiftLintPlugin")
 
         let scriptPath = pluginPath
             .appending(components: "Resources", "swift-format-lint-script.sh")
