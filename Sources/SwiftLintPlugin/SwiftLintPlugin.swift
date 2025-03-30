@@ -12,28 +12,29 @@ import PackagePlugin
 @main
 struct SwiftLintPlugin: BuildToolPlugin {
     /// This entry point is called when operating on a Swift package.
-    func createBuildCommands(context: PluginContext, target: Target) throws -> [Command] {
+    func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
+        // Get the path to the plugin's Resources directory
+        let pluginPath = URL(filePath: context.pluginWorkDirectoryURL.path())
+            .deletingLastPathComponent() // remove 'plugins'
+            .deletingLastPathComponent() // remove 'derived'
+            .deletingLastPathComponent() // remove target name
+            .appending(component: "checkouts")
+            .appending(component: "SwiftLintPlugin")
 
-        let scriptPath = context.package.directoryURL
-            .appending(components: "Resources")
-            .appending(components: "swift-format-lint-script.sh")
-            .path()
+        let scriptPath = pluginPath
+            .appending(components: "Resources", "swift-format-lint-script.sh")
 
-        let configurationPath = context.package.directoryURL
-            .appending(components: "Resources")
-            .appending(components: "swift-format-default-config.json")
-            .path()
-
-        let packagePath = context.package.directoryURL.path()
+        let configurationPath = pluginPath
+            .appending(components: "Resources", "swift-format-default-config.json")
 
         return [
             .buildCommand(
                 displayName: "Running SwiftLintPlugin",
-                executable: URL(filePath: "/bin/bash"),
+                executable: try context.tool(named: "bash").url,
                 arguments: [
-                    scriptPath,
-                    packagePath,
-                    configurationPath,
+                    scriptPath.path,
+                    context.package.directoryURL.path(),
+                    configurationPath.path
                 ],
                 environment: [:],
                 inputFiles: [],
