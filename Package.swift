@@ -8,15 +8,16 @@ let package = Package(
         .macOS(.v14),
     ],
     products: [
-        .library(
+        .plugin(
             name: "SwiftLintPlugin",
             targets: ["SwiftLintPlugin"])
     ],
     targets: [
-        .target(
+        .plugin(
             name: "SwiftLintPlugin",
+            capability: .buildTool(),
             dependencies: []
-        )
+        ),
     ]
 )
 
