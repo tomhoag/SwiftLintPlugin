@@ -17,7 +17,7 @@ let package = Package(
             name: "SwiftLintPlugin",
             capability: .buildTool(),
             dependencies: [],
-            path: "Plugins"
-        ),
+            path: "Sources"
+        )
     ]
 )
