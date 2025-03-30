@@ -13,7 +13,7 @@ import PackagePlugin
 struct SwiftLintPlugin: BuildToolPlugin {
     /// This entry point is called when operating on a Swift package.
     func createBuildCommands(context: PluginContext, target: Target) throws -> [Command] {
-        // CHANGE: Use the plugin's bundle path instead of the host package path
+
         let scriptPath = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .appending(component: "Resources")
