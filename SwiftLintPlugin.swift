@@ -13,15 +13,17 @@ import PackagePlugin
 struct SwiftLintPlugin: BuildToolPlugin {
     /// This entry point is called when operating on a Swift package.
     func createBuildCommands(context: PluginContext, target: Target) throws -> [Command] {
-        // This line sets the path to the script that will be executed by the plugin.
-        let scriptPath = context.package
-            .directoryURL
-            .appending(path: "Plugins/SwiftLintPlugin/swift-format-lint-script.sh")
+        // CHANGE: Use the plugin's bundle path instead of the host package path
+        let scriptPath = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .appending(component: "Resources")
+            .appending(component: "swift-format-lint-script.sh")
             .path
 
-        let configurationPath = context.package
-            .directoryURL
-            .appending(path: "Plugins/SwiftLintPlugin/swift-format-default-config.json")
+        let configurationPath = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .appending(component: "Resources")
+            .appending(component: "swift-format-default-config.json")
             .path
 
         let packagePath = context.package
