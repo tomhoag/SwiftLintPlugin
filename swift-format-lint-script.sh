@@ -1,3 +1,11 @@
+#
+//  swift-format-lint-script.sh
+//  Clusterables
+//
+//  Created by Tom Hoag on 3/30/25.
+//
+
+
 #!/bin/bash
 
 # Step 1: Locate the swift-format tool
